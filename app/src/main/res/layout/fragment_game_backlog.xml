@@ -7,7 +7,7 @@
     tools:context=".ui.GameBacklogFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rrGameBacklog"
+        android:id="@+id/rvGameBacklog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroundDark"
