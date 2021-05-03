@@ -14,4 +14,7 @@
     <string name="not_valid_game_platform">Please fill in a platform</string>
     <string name="not_valid_game_date">Please fill in a valid date</string>
     <string name="release_date">Release: </string>
+    <string name="game_deleted">Game deleted</string>
+    <string name="all_games_deleted">Game Backlog cleared</string>
+    <string name="undo">Undo</string>
 </resources>
