@@ -46,8 +46,6 @@ class AddGameFragment : Fragment() {
     }
 
     // Setup the actionBar, add functionality to the fab.
-    // Because the onAddGame() method uses code from a newer API, an annotation is required.
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,17 +68,13 @@ class AddGameFragment : Fragment() {
 
     // Take the input from the user and add a new entry to the database.
     // Return to the last fragment when done.
-    // Because the onAddGame() method uses code from a newer API, an annotation is required.
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun onAddGame() {
         val gameTitleText = binding.etGameTitle.text.toString()
         val gamePlatformText = binding.etGamePlatform.text.toString()
-
-        val defaultZoneId = ZoneId.systemDefault()
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm")
         val gameReleaseDateText = binding.etReleaseDate.text.toString()
-        val gameReleaseLocalDate = LocalDate.parse(gameReleaseDateText, formatter)
-        val gameReleaseDate = Date.from(gameReleaseLocalDate.atStartOfDay(defaultZoneId).toInstant())
+
+        val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
+        val gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
 
 
         if (gameTitleText.isNotBlank() && gamePlatformText.isNotBlank() && gameReleaseDateText.isNotBlank()) {
