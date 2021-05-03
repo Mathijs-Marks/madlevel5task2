@@ -37,6 +37,9 @@ class GameBacklogFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
+
         _binding = FragmentGameBacklogBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,6 +49,7 @@ class GameBacklogFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.game_backlog_fragment_label)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         initViews()
         observeAddGameResult()

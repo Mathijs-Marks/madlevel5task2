@@ -17,6 +17,9 @@ data class Game (
     @ColumnInfo(name = "release_date")
     var gameReleaseDate: Date,
 
+    @ColumnInfo(name = "release_date_text")
+    var gameReleaseDateText: String,
+
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null

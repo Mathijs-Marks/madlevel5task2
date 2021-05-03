@@ -11,4 +11,5 @@
     <string name="add_game_platform">Platform</string>
     <string name="add_game_date">Release date</string>
     <string name="not_valid_game">Invalid game</string>
+    <string name="release_date">Release: </string>
 </resources>

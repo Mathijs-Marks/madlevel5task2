@@ -2,10 +2,9 @@ package com.example.madlevel5task2.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -41,6 +40,8 @@ class AddGameFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
         _binding = FragmentAddGameBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,6 +61,21 @@ class AddGameFragment : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_add_game, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // Return to the Game Backlog Fragment.
+                findNavController().popBackStack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     // Safely switch between fragments.
     override fun onDestroyView() {
         super.onDestroyView()
@@ -71,14 +87,18 @@ class AddGameFragment : Fragment() {
     private fun onAddGame() {
         val gameTitleText = binding.etGameTitle.text.toString()
         val gamePlatformText = binding.etGamePlatform.text.toString()
-        val gameReleaseDateText = binding.etReleaseDate.text.toString()
-
-        val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
-        val gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
+        val gameReleaseDateInput = binding.etReleaseDate.text.toString()
 
 
-        if (gameTitleText.isNotBlank() && gamePlatformText.isNotBlank() && gameReleaseDateText.isNotBlank()) {
-            viewModel.insertGame(Game(gameTitleText, gamePlatformText, gameReleaseDate))
+
+        if (gameTitleText.isNotBlank() && gamePlatformText.isNotBlank() && gameReleaseDateInput.isNotBlank()) {
+
+            val gameReleaseDateText = getString(R.string.release_date) + " " + gameReleaseDateInput
+
+            val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
+            val gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
+
+            viewModel.insertGame(Game(gameTitleText, gamePlatformText, gameReleaseDate, gameReleaseDateText))
 
             // "Pop" the backstack, this means we destroy this fragment and go back to the RemindersFragment.
             findNavController().popBackStack()

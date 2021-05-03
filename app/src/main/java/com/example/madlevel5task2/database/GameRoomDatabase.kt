@@ -6,7 +6,7 @@ import com.example.madlevel5task2.Converters
 import com.example.madlevel5task2.dao.GameDao
 import com.example.madlevel5task2.model.Game
 
-@Database(entities = [Game::class], version = 1, exportSchema = false)
+@Database(entities = [Game::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class GameRoomDatabase: RoomDatabase() {
 
@@ -26,6 +26,7 @@ abstract class GameRoomDatabase: RoomDatabase() {
                             context.applicationContext,
                             GameRoomDatabase::class.java, DATABASE_NAME
                         )
+                            .fallbackToDestructiveMigration()
                             .build()
                     }
                 }

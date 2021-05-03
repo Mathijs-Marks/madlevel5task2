@@ -1,5 +1,6 @@
 package com.example.madlevel5task2.ui
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,7 @@ class GameAdapter(private val games: List<Game>) : RecyclerView.Adapter<GameAdap
         fun dataBind(game: Game) {
             binding.tvGameTitle.text = game.gameTitleText
             binding.tvGamePlatform.text = game.gamePlatformText
-            binding.tvGameReleaseDate.text = game.gameReleaseDate.toString()
+            binding.tvGameReleaseDate.text = game.gameReleaseDateText
         }
     }
 
