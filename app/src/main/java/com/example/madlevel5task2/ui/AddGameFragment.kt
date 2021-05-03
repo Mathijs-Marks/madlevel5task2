@@ -28,6 +28,9 @@ import java.util.Date
  */
 class AddGameFragment : Fragment() {
 
+    private val DATE_PATTERN = Regex(
+        "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$")
+
     // Initialize binding for the Game Backlog.
     private var _binding: FragmentAddGameBinding? = null
     private val binding get() = _binding!!
@@ -96,14 +99,30 @@ class AddGameFragment : Fragment() {
             val gameReleaseDateText = getString(R.string.release_date) + " " + gameReleaseDateInput
 
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
-            val gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
+            var gameReleaseDate = Date()
+
+
+            // TODO: Ask teacher how this can be done more efficiently.
+            try {
+                gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
+            } catch(e: Exception) {
+                Toast.makeText(activity, R.string.not_valid_game_date, Toast.LENGTH_SHORT).show()
+            }
+
+
 
             viewModel.insertGame(Game(gameTitleText, gamePlatformText, gameReleaseDate, gameReleaseDateText))
 
             // "Pop" the backstack, this means we destroy this fragment and go back to the RemindersFragment.
             findNavController().popBackStack()
-        } else {
-            Toast.makeText(activity, R.string.not_valid_game, Toast.LENGTH_SHORT).show()
+
+        } else if (gameTitleText.isBlank()){
+            Toast.makeText(activity, R.string.not_valid_game_title, Toast.LENGTH_SHORT).show()
+        } else if (gamePlatformText.isBlank()) {
+            Toast.makeText(activity, R.string.not_valid_game_platform, Toast.LENGTH_SHORT).show()
+            // TODO: Figure out why regex check is not working.
+        } else if (gameReleaseDateInput.isBlank() || DATE_PATTERN.containsMatchIn(gameReleaseDateInput)) {
+            Toast.makeText(activity, R.string.not_valid_game_date, Toast.LENGTH_SHORT).show()
         }
     }
 }

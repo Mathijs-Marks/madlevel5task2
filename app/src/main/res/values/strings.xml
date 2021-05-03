@@ -10,6 +10,8 @@
     <string name="add_game_title">Title</string>
     <string name="add_game_platform">Platform</string>
     <string name="add_game_date">Release date</string>
-    <string name="not_valid_game">Invalid game</string>
+    <string name="not_valid_game_title">Please fill in a title</string>
+    <string name="not_valid_game_platform">Please fill in a platform</string>
+    <string name="not_valid_game_date">Please fill in a valid date</string>
     <string name="release_date">Release: </string>
 </resources>
