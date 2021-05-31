@@ -15,6 +15,7 @@ import com.example.madlevel5task2.R
 import com.example.madlevel5task2.databinding.FragmentGameBacklogBinding
 import com.example.madlevel5task2.model.Game
 import com.example.madlevel5task2.viewmodel.GameViewModel
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * This class is responsible for displaying the list of games.
@@ -65,7 +66,7 @@ class GameBacklogFragment : Fragment() {
         return when (item.itemId) {
             R.id.action_delete_all -> {
                 // Clear the Game History list.
-                viewModel.deleteAllGames()
+                onDeleteAllGames()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -120,5 +121,24 @@ class GameBacklogFragment : Fragment() {
             }
         }
         return ItemTouchHelper(callback)
+    }
+
+    private fun onDeleteAllGames() {
+
+        this@GameBacklogFragment.games.clear()
+        gameAdapter.notifyDataSetChanged()
+
+        val undoSnackbar = view?.let { Snackbar.make(it, getString(R.string.all_games_deleted), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.undo)) { observeAddGameResult() }
+                .addCallback(object : Snackbar.Callback() {
+                    override fun onDismissed(snackbar: Snackbar, event: Int) {
+                        if (event == DISMISS_EVENT_TIMEOUT) {
+                            viewModel.deleteAllGames()
+                            gameAdapter.notifyDataSetChanged()
+                        }
+                    }
+                })
+        }
+        undoSnackbar?.show()
     }
 }

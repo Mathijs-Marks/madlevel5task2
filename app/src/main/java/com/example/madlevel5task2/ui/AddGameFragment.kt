@@ -106,6 +106,7 @@ class AddGameFragment : Fragment() {
                 gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
             } catch(e: Exception) {
                 Toast.makeText(activity, R.string.not_valid_game_date, Toast.LENGTH_SHORT).show()
+                return
             }
 
 
@@ -121,7 +122,7 @@ class AddGameFragment : Fragment() {
         } else if (gamePlatformText.isBlank()) {
             Toast.makeText(activity, R.string.not_valid_game_platform, Toast.LENGTH_SHORT).show()
             // TODO: Figure out why regex check is not working.
-        } else if (gameReleaseDateInput.isBlank() || DATE_PATTERN.containsMatchIn(gameReleaseDateInput)) {
+        } else if (gameReleaseDateInput.isBlank() || !DATE_PATTERN.containsMatchIn(gameReleaseDateInput)) {
             Toast.makeText(activity, R.string.not_valid_game_date, Toast.LENGTH_SHORT).show()
         }
     }
