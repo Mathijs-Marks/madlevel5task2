@@ -17,7 +17,7 @@ import com.example.madlevel5task2.model.Game
 import com.example.madlevel5task2.viewmodel.GameViewModel
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * This class is responsible for displaying the list of games.
  */
 class GameBacklogFragment : Fragment() {
 

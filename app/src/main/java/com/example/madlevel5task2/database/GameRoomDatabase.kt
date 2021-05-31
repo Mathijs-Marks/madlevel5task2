@@ -10,6 +10,10 @@ import com.example.madlevel5task2.model.Game
 @TypeConverters(Converters::class)
 abstract class GameRoomDatabase: RoomDatabase() {
 
+    /**
+     * This class is responsible for setting up the database as a singleton.
+     */
+
     abstract fun gameDao(): GameDao
 
     companion object {

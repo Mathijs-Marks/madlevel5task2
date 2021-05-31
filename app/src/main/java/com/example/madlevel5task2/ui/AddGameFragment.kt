@@ -24,10 +24,12 @@ import java.util.*
 import java.util.Date
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * This class handles the input for adding a new game.
  */
 class AddGameFragment : Fragment() {
 
+    // I tried to make use of a Regex string to enforce giving a correct date.
+    // Sadly, I couldn't make it work :(
     private val DATE_PATTERN = Regex(
         "^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[13-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))\$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})\$")
 
@@ -92,8 +94,7 @@ class AddGameFragment : Fragment() {
         val gamePlatformText = binding.etGamePlatform.text.toString()
         val gameReleaseDateInput = binding.etReleaseDate.text.toString()
 
-
-
+        // When all fields are filled in, parse the input string into a date that can be stored in the database.
         if (gameTitleText.isNotBlank() && gamePlatformText.isNotBlank() && gameReleaseDateInput.isNotBlank()) {
 
             val gameReleaseDateText = getString(R.string.release_date) + " " + gameReleaseDateInput
@@ -101,8 +102,6 @@ class AddGameFragment : Fragment() {
             val dateFormatter = SimpleDateFormat("dd/MM/yyyy")
             var gameReleaseDate = Date()
 
-
-            // TODO: Ask teacher how this can be done more efficiently.
             try {
                 gameReleaseDate = dateFormatter.parse(binding.etReleaseDate.text.toString())
             } catch(e: Exception) {
@@ -111,6 +110,7 @@ class AddGameFragment : Fragment() {
 
 
 
+            // Tell the ViewModel to insert the new game item into the database, with the input strings as the components.
             viewModel.insertGame(Game(gameTitleText, gamePlatformText, gameReleaseDate, gameReleaseDateText))
 
             // "Pop" the backstack, this means we destroy this fragment and go back to the RemindersFragment.

@@ -11,6 +11,10 @@ import kotlinx.coroutines.launch
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
 
+    /**
+     * This class contains all business code that are used in the fragments.
+     */
+
     private val ioScope = CoroutineScope(Dispatchers.IO)
     private val gameRepository = GameRepository(application.applicationContext)
 

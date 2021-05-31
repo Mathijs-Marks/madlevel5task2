@@ -8,6 +8,10 @@ import com.example.madlevel5task2.model.Game
 
 class GameRepository(context: Context) {
 
+    /**
+     * This class makes use of the GameDao interface to execute the available requests to the database.
+     */
+
     private var gameDao: GameDao
 
     init {

@@ -10,6 +10,10 @@ import com.example.madlevel5task2.model.Game
 @Dao
 interface GameDao {
 
+    /**
+     * This interface contains all the available request that the client can make to the database.
+     */
+
     @Query("SELECT * FROM gameTable ORDER BY release_date")
     fun getAllGames(): LiveData<List<Game>>
 

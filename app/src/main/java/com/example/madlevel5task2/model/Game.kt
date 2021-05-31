@@ -8,6 +8,10 @@ import java.util.*
 @Entity(tableName = "gameTable")
 data class Game (
 
+    /**
+     * This data model contains all the required components for each game.
+     */
+
     @ColumnInfo(name = "title")
     var gameTitleText: String,
 
